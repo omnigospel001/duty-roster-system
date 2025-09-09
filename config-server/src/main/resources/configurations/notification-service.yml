@@ -1,0 +1,32 @@
+server:
+  port: 8040
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: dutyGroup
+#      group-id: dutyGroup,paymentGroup
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: '*'
+        spring.json.type.mapping: dutyNotificationResponse:com.notification.service.response.DutyNotificationResponse
+#        spring.json.type.mapping: dutyNotificationResponse:com.notification.service.response.DutyNotificationResponse,paymentConfirmation:com.notification.service.response.PaymentConfirmation
+
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: my_gmail_email
+    password: my_gmail_generated_password
+    protocol: smtp
+    subject: Duty Roster Reminder
+    properties:
+      mail:
+        debug: true
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+

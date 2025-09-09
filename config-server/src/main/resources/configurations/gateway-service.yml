@@ -1,0 +1,23 @@
+server:
+  port: 8222
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          routes:
+            - id: user-service
+              uri: lb://user-service
+              predicates:
+                - Path=/user/**
+            - id: duty-service
+              uri: lb://duty-service
+              predicates:
+                - Path=/duty/**
+
+
+
